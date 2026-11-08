@@ -8,7 +8,10 @@ export interface Project {
   image: string;
   imageAlt: string;
   liveUrl?: string;
-  repoUrl: string;
+  /** Text for the live link. Defaults to "Live demo". */
+  liveLabel?: string;
+  /** Omitted for closed-source (commercial) projects. */
+  repoUrl?: string;
 }
 
 export interface Achievement {

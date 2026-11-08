@@ -1,4 +1,4 @@
-import type { MouseEvent, Ref, SyntheticEvent } from "react";
+import { useId, type MouseEvent, type Ref, type SyntheticEvent } from "react";
 import type { Project } from "../types";
 
 interface ProjectDialogProps {
@@ -9,6 +9,9 @@ interface ProjectDialogProps {
 }
 
 export function ProjectDialog({ project, ref, onRequestClose, onClosed }: ProjectDialogProps) {
+  // Unique per dialog, since each projects section renders its own.
+  const titleId = useId();
+
   // Esc: stop the instant native close so we can animate it ourselves.
   const handleCancel = (event: SyntheticEvent<HTMLDialogElement>) => {
     event.preventDefault();
@@ -24,7 +27,7 @@ export function ProjectDialog({ project, ref, onRequestClose, onClosed }: Projec
     <dialog
       ref={ref}
       className="modal"
-      aria-labelledby="project-dialog-title"
+      aria-labelledby={titleId}
       onCancel={handleCancel}
       onClose={onClosed}
       onClick={handleClick}
@@ -49,7 +52,7 @@ export function ProjectDialog({ project, ref, onRequestClose, onClosed }: Projec
           </div>
 
           <div className="modal__body">
-            <h2 id="project-dialog-title" className="modal__title">
+            <h2 id={titleId} className="modal__title">
               {project.title}
             </h2>
             <p className="card__tagline">{project.tagline}</p>
@@ -69,12 +72,14 @@ export function ProjectDialog({ project, ref, onRequestClose, onClosed }: Projec
             <div className="links modal__links">
               {project.liveUrl && (
                 <a href={project.liveUrl} target="_blank" rel="noreferrer">
-                  Live demo <span aria-hidden="true">↗</span>
+                  {project.liveLabel ?? "Live demo"} <span aria-hidden="true">↗</span>
                 </a>
               )}
-              <a href={project.repoUrl} target="_blank" rel="noreferrer">
-                Source code <span aria-hidden="true">↗</span>
-              </a>
+              {project.repoUrl && (
+                <a href={project.repoUrl} target="_blank" rel="noreferrer">
+                  Source code <span aria-hidden="true">↗</span>
+                </a>
+              )}
             </div>
           </div>
         </div>

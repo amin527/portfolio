@@ -1,5 +1,7 @@
+import studiosWebsiteImage from "../assets/projects/527studios-website.png";
 import journalImage from "../assets/projects/journal-app.png";
 import pokemonImage from "../assets/projects/pokemon-app.png";
+import socialQuestImage from "../assets/projects/socialquest.png";
 import type { Profile, Project, Qualification, Role } from "../types";
 
 export const profile: Profile = {
@@ -63,6 +65,45 @@ export const projects: Project[] = [
     imageAlt: "Journal App home page",
     liveUrl: "https://journal-app-gamma-ten.vercel.app",
     repoUrl: "https://github.com/amin527/journal-app",
+  },
+];
+
+export const businessProjects: Project[] = [
+  {
+    id: "527studios-website",
+    title: "527Studios Website",
+    tagline: "Business website · Next.js",
+    description:
+      "The company website for 527Studios Limited, a UK-based mobile app studio. It presents the studio's services and shipped apps, and hosts each app's privacy policy and terms.",
+    highlights: [
+      "Responsive single-page layout with About, Services and Applications sections",
+      "Optimised app logos served through Next.js image optimisation",
+      "Per-app privacy policy and terms pages required for App Store submission",
+    ],
+    stack: ["TypeScript", "Next.js", "React", "CSS Modules"],
+    image: studiosWebsiteImage,
+    imageAlt: "527Studios website hero reading 'Consumer apps built to the highest standard'",
+    liveUrl: "https://www.527studios.co.uk/",
+    liveLabel: "Visit website",
+  },
+  {
+    id: "socialquest",
+    title: "SocialQuest",
+    tagline: "iOS app · React Native and Supabase",
+    description:
+      "A live App Store app that helps users level up their social life, with around 400 downloads and 10 active subscribers.",
+    highlights: [
+      "Onboarding designed to maximise user retention",
+      "In-app subscription paywall integrated with RevenueCat",
+      "User authentication with Supabase and session management through React Context",
+      "Access control for sensitive backend operations through Supabase RPC functions",
+      "Dual-frame loader synced with data fetching to prevent transition flicker",
+    ],
+    stack: ["TypeScript", "React Native", "Expo", "Supabase", "RevenueCat"],
+    image: socialQuestImage,
+    imageAlt: "SocialQuest app logo, a green pixel-art octopus",
+    liveUrl: "https://apps.apple.com/app/socialquest/id6761503836",
+    liveLabel: "View on App Store",
   },
 ];
 

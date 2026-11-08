@@ -498,15 +498,24 @@ body:has(.modal[open]) {
   padding-bottom: clamp(3rem, 8vw, 5rem);
 }
 
-.split-page .section__header {
+/* The larger titles carry the section break, so less space is needed above them. */
+.project-sections .section {
+  padding-top: clamp(2rem, 5vw, 3rem);
+}
+
+/* Shared with the projects page so section titles match across pages. */
+.split-page .section__header,
+.project-sections .section__header {
   margin-bottom: 1.5rem;
 }
 
-.split-page .section__index {
+.split-page .section__index,
+.project-sections .section__index {
   display: none;
 }
 
-.split-page .section__title {
+.split-page .section__title,
+.project-sections .section__title {
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   font-weight: 600;
   letter-spacing: -0.015em;

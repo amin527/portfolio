@@ -41,12 +41,14 @@ export function ProjectCard({ project, isTransitionTarget, onOpen }: ProjectCard
         <div className="links card__links">
           {project.liveUrl && (
             <a href={project.liveUrl} target="_blank" rel="noreferrer">
-              Live demo <span aria-hidden="true">↗</span>
+              {project.liveLabel ?? "Live demo"} <span aria-hidden="true">↗</span>
             </a>
           )}
-          <a href={project.repoUrl} target="_blank" rel="noreferrer">
-            Source code <span aria-hidden="true">↗</span>
-          </a>
+          {project.repoUrl && (
+            <a href={project.repoUrl} target="_blank" rel="noreferrer">
+              Source code <span aria-hidden="true">↗</span>
+            </a>
+          )}
         </div>
       </div>
     </article>

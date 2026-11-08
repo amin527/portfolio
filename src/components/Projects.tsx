@@ -18,10 +18,13 @@ function withViewTransition(update: () => void) {
 }
 
 interface ProjectsProps {
+  id: string;
+  index: string;
+  title: string;
   projects: Project[];
 }
 
-export function Projects({ projects }: ProjectsProps) {
+export function Projects({ id, index, title, projects }: ProjectsProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   // The card taking part in the open/close animation. Only this card gets a
   // view-transition name, so the other cards stay in the background snapshot
@@ -48,7 +51,7 @@ export function Projects({ projects }: ProjectsProps) {
   };
 
   return (
-    <Section id="projects" index="01" title="Selected Projects">
+    <Section id={id} index={index} title={title}>
       <div className="projects">
         {projects.map((project) => (
           <ProjectCard
