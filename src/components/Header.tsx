@@ -1,17 +1,10 @@
 import { Link, NavLink } from "react-router";
+import { PixelGamepadIcon } from "./Icons";
 
 const links = [
   { to: "/", label: "Projects" },
   { to: "/about", label: "About" },
 ];
-
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
-}
 
 interface HeaderProps {
   name: string;
@@ -22,7 +15,7 @@ export function Header({ name }: HeaderProps) {
     <header className="site-header">
       <div className="container site-header__inner">
         <Link to="/" className="site-header__logo" aria-label={`${name}, home`}>
-          <span aria-hidden="true">{getInitials(name)}</span>
+          <PixelGamepadIcon className="site-header__icon" />
         </Link>
         <nav aria-label="Main">
           <ul className="site-header__links">

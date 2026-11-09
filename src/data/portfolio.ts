@@ -1,15 +1,18 @@
 import studiosWebsiteImage from "../assets/projects/527studios-website.png";
 import journalImage from "../assets/projects/journal-app.png";
 import pokemonImage from "../assets/projects/pokemon-app.png";
+import redesignAfterFullImage from "../assets/projects/redesign-after-full.jpg";
+import redesignAfterImage from "../assets/projects/redesign-after.jpg";
+import redesignBeforeImage from "../assets/projects/redesign-before.jpg";
 import socialQuestImage from "../assets/projects/socialquest.png";
-import type { Profile, Project, Qualification, Role } from "../types";
+import type { Profile, Project, ProjectGroup, Qualification, Role } from "../types";
 
 export const profile: Profile = {
   name: "Amin Parvareshnia",
-  role: "Fullstack Developer",
+  role: "Founder & Full-stack Developer",
   location: "Cardiff, UK · Open to relocation",
   intro:
-    "Fullstack developer and founder of 527Studios, building web and mobile apps with React, TypeScript, React Native and Spring Boot.",
+    "Fullstack developer and founder of an app development business with a live product on the App Store",
   about: [
     "Fullstack developer and founder of an app development business with a live product on the App Store (400 downloads and 10 active subscribers). Strong background in mathematics and data analysis with the ability to break down complex problems and assess the viability of solutions. Experienced in working directly with stakeholders and confident at interpreting business needs and communicating technical information to non-technical audiences effectively.",
   ],
@@ -27,6 +30,7 @@ export const profile: Profile = {
   githubUrl: "https://github.com/amin527",
   linkedinUrl: "https://www.linkedin.com/in/amin-parvareshnia/",
 };
+
 
 export const projects: Project[] = [
   {
@@ -68,24 +72,26 @@ export const projects: Project[] = [
   },
 ];
 
+/** Shown as a chip in the 527Studios section's meta row. */
+export const studiosWebsite: Project = {
+  id: "527studios-website",
+  title: "527Studios Website",
+  tagline: "Business website · Next.js",
+  description:
+    "The company website for 527Studios Limited, a UK-based mobile app studio. It presents the studio's services and shipped apps, and hosts each app's privacy policy and terms.",
+  highlights: [
+    "Responsive single-page layout with About, Services and Applications sections",
+    "Optimised app logos served through Next.js image optimisation",
+    "Per-app privacy policy and terms pages required for App Store submission",
+  ],
+  stack: ["TypeScript", "Next.js", "React", "CSS Modules"],
+  image: studiosWebsiteImage,
+  imageAlt: "527Studios website hero reading 'Consumer apps built to the highest standard'",
+  liveUrl: "https://www.527studios.co.uk/",
+  liveLabel: "Visit website",
+};
+
 export const businessProjects: Project[] = [
-  {
-    id: "527studios-website",
-    title: "527Studios Website",
-    tagline: "Business website · Next.js",
-    description:
-      "The company website for 527Studios Limited, a UK-based mobile app studio. It presents the studio's services and shipped apps, and hosts each app's privacy policy and terms.",
-    highlights: [
-      "Responsive single-page layout with About, Services and Applications sections",
-      "Optimised app logos served through Next.js image optimisation",
-      "Per-app privacy policy and terms pages required for App Store submission",
-    ],
-    stack: ["TypeScript", "Next.js", "React", "CSS Modules"],
-    image: studiosWebsiteImage,
-    imageAlt: "527Studios website hero reading 'Consumer apps built to the highest standard'",
-    liveUrl: "https://www.527studios.co.uk/",
-    liveLabel: "Visit website",
-  },
   {
     id: "socialquest",
     title: "SocialQuest",
@@ -104,6 +110,43 @@ export const businessProjects: Project[] = [
     imageAlt: "SocialQuest app logo, a green pixel-art octopus",
     liveUrl: "https://apps.apple.com/app/socialquest/id6761503836",
     liveLabel: "View on App Store",
+  },
+];
+
+/** Sections on the projects page, in display order. */
+export const projectGroups: ProjectGroup[] = [
+  {
+    id: "527studios",
+    title: "527Studios Limited",
+    label: "Company",
+    description:
+      "My mobile app studio. I design, build and ship consumer apps end to end, from research to App Store release.",
+    featured: studiosWebsite,
+    projects: businessProjects,
+    showcase: {
+      id: "love-board-games-redesign",
+      title: "Website redesign",
+      tagline: "Drag the handle to compare before and after",
+      // TODO: replace with the real project summary, highlights and stack.
+      description:
+        "A redesign of the Love Board Games homepage, a UK board game rental subscription, replacing a busy stacked layout with a clear, illustrated brand.",
+      highlights: [],
+      stack: [],
+      fullImage: redesignAfterFullImage,
+      image: redesignAfterImage,
+      imageAlt:
+        "After: the redesigned board game rental homepage with a dark illustrated hero, serif headline and gold call-to-action buttons",
+      beforeImage: redesignBeforeImage,
+      beforeImageAlt: "Before: a busy, multi-colour board game rental homepage with stacked banners",
+    },
+  },
+  {
+    id: "personal",
+    title: "Personal Projects",
+    label: "Personal",
+    description:
+      "Side projects built with a professional workflow: feature branches, CI pipelines and automated tests.",
+    projects,
   },
 ];
 

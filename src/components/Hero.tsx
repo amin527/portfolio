@@ -1,25 +1,46 @@
+import { Link } from "react-router";
 import type { Profile } from "../types";
+import { GitHubIcon, LinkedInIcon, MailIcon } from "./Icons";
 
 interface HeroProps {
   profile: Profile;
 }
 
 export function Hero({ profile }: HeroProps) {
+  const contacts = [
+    { label: profile.email, href: `mailto:${profile.email}`, external: false, Icon: MailIcon },
+    { label: "GitHub", href: profile.githubUrl, external: true, Icon: GitHubIcon },
+    ...(profile.linkedinUrl
+      ? [{ label: "LinkedIn", href: profile.linkedinUrl, external: true, Icon: LinkedInIcon }]
+      : []),
+  ];
+
   return (
-    <section id="top" className="hero">
-      <h1 className="hero__title">{profile.name}</h1>
-      <p className="hero__role">{profile.role}</p>
-      <p className="hero__location">{profile.location}</p>
-      <p className="hero__intro">{profile.intro}</p>
-      <div className="links">
-        <a href={profile.githubUrl} target="_blank" rel="noreferrer">
-          GitHub <span aria-hidden="true">↗</span>
-        </a>
-        {profile.linkedinUrl && (
-          <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">
-            LinkedIn <span aria-hidden="true">↗</span>
-          </a>
-        )}
+    <section className="intro" aria-labelledby="intro-title">
+      <h1 id="intro-title" className="intro__name intro__reveal">
+        {profile.name}
+      </h1>
+      <p className="intro__role intro__reveal">{profile.role}</p>
+      <p className="intro__bio intro__reveal">{profile.intro}</p>
+
+      <div className="intro__aside intro__reveal">
+        <ul className="contact" aria-label="Contact">
+          {contacts.map((contact) => (
+            <li key={contact.label}>
+              <a
+                className="contact__link"
+                href={contact.href}
+                {...(contact.external && { target: "_blank", rel: "noreferrer" })}
+              >
+                <contact.Icon className="contact__icon" />
+                {contact.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <Link className="button intro__cv" to="/about">
+          View full CV <span className="button__arrow" aria-hidden="true">→</span>
+        </Link>
       </div>
     </section>
   );

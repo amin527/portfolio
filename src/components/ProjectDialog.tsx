@@ -41,12 +41,11 @@ export function ProjectDialog({ project, ref, onRequestClose, onClosed }: Projec
             </svg>
           </button>
 
-          <div className="modal__media">
+          <div className={project.fullImage ? "modal__media modal__media--full" : "modal__media"}>
             <img
-              src={project.image}
+              src={project.fullImage ?? project.image}
               alt={project.imageAlt}
-              width={1280}
-              height={800}
+              {...(!project.fullImage && { width: 1280, height: 800 })}
               style={{ viewTransitionName: `project-image-${project.id}` }}
             />
           </div>
@@ -59,15 +58,23 @@ export function ProjectDialog({ project, ref, onRequestClose, onClosed }: Projec
 
             <p className="modal__description">{project.description}</p>
 
-            <h3 className="modal__subheading">Highlights</h3>
-            <ul className="modal__highlights">
-              {project.highlights.map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
-            </ul>
+            {project.highlights.length > 0 && (
+              <>
+                <h3 className="modal__subheading">Highlights</h3>
+                <ul className="modal__highlights">
+                  {project.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
+              </>
+            )}
 
-            <h3 className="modal__subheading">Tech stack</h3>
-            <p className="modal__stack">{project.stack.join(" · ")}</p>
+            {project.stack.length > 0 && (
+              <>
+                <h3 className="modal__subheading">Tech stack</h3>
+                <p className="modal__stack">{project.stack.join(" · ")}</p>
+              </>
+            )}
 
             <div className="links modal__links">
               {project.liveUrl && (
