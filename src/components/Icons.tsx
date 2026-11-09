@@ -20,6 +20,42 @@ function Icon({ children, ...props }: SVGProps<SVGSVGElement>) {
   );
 }
 
+/** 16×9 pixel-art gamepad. "#" is a filled pixel; gaps form the d-pad and buttons. */
+const GAMEPAD_PIXELS = [
+  "..############..",
+  ".##############.",
+  "###.#######.####",
+  "##...#####.#.###",
+  "###.#######.####",
+  "################",
+  "#####......#####",
+  "####........####",
+  ".##..........##.",
+];
+
+/** Each horizontal run of filled pixels becomes one rect, to keep the SVG small. */
+const gamepadRuns = GAMEPAD_PIXELS.flatMap((row, y) =>
+  [...row.matchAll(/#+/g)].map((match) => ({ x: match.index, y, width: match[0].length })),
+);
+
+export function PixelGamepadIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 9"
+      fill="currentColor"
+      shapeRendering="crispEdges"
+      aria-hidden="true"
+      focusable="false"
+      {...props}
+    >
+      {gamepadRuns.map(({ x, y, width }) => (
+        <rect key={`${x}-${y}`} x={x} y={y} width={width} height={1} />
+      ))}
+    </svg>
+  );
+}
+
 export function MailIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <Icon {...props}>

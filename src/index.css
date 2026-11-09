@@ -8,6 +8,9 @@
   --shadow-color: #3a2f4d;
   --shadow: 4px 4px 0 var(--shadow-color);
   --shadow-raised: 6px 6px 0 var(--shadow-color);
+  /* Page backdrop. */
+  --dot-color: rgb(17 17 17 / 0.09);
+  --glow-color: rgb(91 33 182 / 0.07);
 
   --font: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
@@ -27,6 +30,8 @@
     --accent: #4ade80;
     /* A touch lighter than light mode so it still shows against the dark page. */
     --shadow-color: #33284a;
+    --dot-color: rgb(237 237 237 / 0.07);
+    --glow-color: rgb(124 58 237 / 0.14);
     color-scheme: dark;
   }
 }
@@ -56,6 +61,38 @@ body {
   font-size: 1rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Page backdrop, fixed behind everything:
+ * a fine dot grid (echoes the grid layout) fading out down the screen,
+ * plus a soft purple glow at the top that ties in with the card shadows.
+ */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1.5px);
+  background-size: 24px 24px;
+  /* Gentle fade only: the grid stays visible down the whole screen. */
+  mask-image: linear-gradient(to bottom, #000 0%, rgb(0 0 0 / 0.6) 100%);
+}
+
+body::after {
+  background:
+    radial-gradient(ellipse 70rem 32rem at 50% -8rem, var(--glow-color), transparent 70%),
+    /* Bottom-corner glow at under half the strength of the top one. */
+    radial-gradient(
+      ellipse 50rem 28rem at 100% 110%,
+      color-mix(in srgb, var(--glow-color) 40%, transparent),
+      transparent 70%
+    );
 }
 
 h1,
@@ -139,25 +176,27 @@ a {
 .site-header__logo {
   display: grid;
   place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid var(--ink);
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.8125rem;
-  letter-spacing: 0.04em;
+  /* Keeps a 44px tap target even though the icon itself is smaller. */
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  color: var(--ink);
   text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+  transition: color 0.2s;
 }
 
+/* 16×9 pixel grid at 2px per pixel, so every pixel lands on whole screen pixels. */
 .site-header__icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 32px;
+  height: 18px;
 }
 
 .site-header__logo:hover {
-  background: var(--ink);
-  color: var(--bg);
+  color: var(--accent);
+}
+
+.site-header__logo:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
 }
 
 .site-header__links {

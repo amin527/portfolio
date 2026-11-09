@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router";
-import { GamepadIcon } from "./Icons";
+import { PixelGamepadIcon } from "./Icons";
 
 const links = [
   { to: "/", label: "Projects" },
@@ -15,7 +15,7 @@ export function Header({ name }: HeaderProps) {
     <header className="site-header">
       <div className="container site-header__inner">
         <Link to="/" className="site-header__logo" aria-label={`${name}, home`}>
-          <GamepadIcon className="site-header__icon" />
+          <PixelGamepadIcon className="site-header__icon" />
         </Link>
         <nav aria-label="Main">
           <ul className="site-header__links">
