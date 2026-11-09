@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import type { Project } from "../types";
+import type { ProjectGroup } from "../types";
+import { BeforeAfterCard } from "./BeforeAfterCard";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectDialog } from "./ProjectDialog";
-import { Section } from "./Section";
 
 /** Runs a DOM update inside a view transition when the browser supports it. */
 function withViewTransition(update: () => void) {
@@ -18,20 +18,20 @@ function withViewTransition(update: () => void) {
 }
 
 interface ProjectsProps {
-  id: string;
-  index: string;
-  title: string;
-  projects: Project[];
+  group: ProjectGroup;
 }
 
-export function Projects({ id, index, title, projects }: ProjectsProps) {
+export function Projects({ group }: ProjectsProps) {
+  const { id, title, description, link, featured, projects, showcase } = group;
+  const allProjects = [...(featured ? [featured] : []), ...projects, ...(showcase ? [showcase] : [])];
+  const headingId = `${id}-heading`;
   const dialogRef = useRef<HTMLDialogElement>(null);
   // The card taking part in the open/close animation. Only this card gets a
   // view-transition name, so the other cards stay in the background snapshot
   // instead of being layered on top of the expanding dialog.
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const selected = isOpen ? (projects.find((p) => p.id === activeId) ?? null) : null;
+  const selected = isOpen ? (allProjects.find((p) => p.id === activeId) ?? null) : null;
 
   const openProject = (id: string) => {
     // Name the clicked card *before* the "old" snapshot is taken.
@@ -51,7 +51,21 @@ export function Projects({ id, index, title, projects }: ProjectsProps) {
   };
 
   return (
-    <Section id={id} index={index} title={title}>
+    <section id={id} className="group" aria-labelledby={headingId}>
+      <header className="group__header">
+        <h2 id={headingId} className="group__title">
+          {title}
+        </h2>
+        <p className="group__description">{description}</p>
+        {link && (
+          <div className="links group__link">
+            <a href={link.href} target="_blank" rel="noreferrer">
+              {link.label} <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        )}
+      </header>
+
       <div className="projects">
         {projects.map((project) => (
           <ProjectCard
@@ -61,6 +75,13 @@ export function Projects({ id, index, title, projects }: ProjectsProps) {
             onOpen={() => openProject(project.id)}
           />
         ))}
+        {showcase && (
+          <BeforeAfterCard
+            project={showcase}
+            isTransitionTarget={showcase.id === activeId && !isOpen}
+            onOpen={() => openProject(showcase.id)}
+          />
+        )}
       </div>
 
       <ProjectDialog
@@ -70,6 +91,6 @@ export function Projects({ id, index, title, projects }: ProjectsProps) {
         // Safety net in case the browser closes the dialog natively.
         onClosed={() => setIsOpen(false)}
       />
-    </Section>
+    </section>
   );
 }
