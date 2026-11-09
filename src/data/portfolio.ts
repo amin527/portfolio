@@ -120,7 +120,8 @@ export const projectGroups: ProjectGroup[] = [
     title: "527Studios Limited",
     label: "Company",
     description:
-      "My mobile app studio. I design, build and ship consumer apps end to end, from research to App Store release.",
+      "I build bespoke web and mobile apps for clients through 527Studios, alongside developing and launching my own products.",
+    link: { href: "https://www.527studios.co.uk/", label: "527studios.co.uk" },
     featured: studiosWebsite,
     projects: businessProjects,
     showcase: {

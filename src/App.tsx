@@ -11,6 +11,11 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <ProjectsPage /> },
       { path: "about", element: <AboutPage /> },
+      {
+        path: "cv",
+        // Loaded on demand so pdf.js isn't in the main bundle.
+        lazy: async () => ({ Component: (await import("./pages/CvPage")).CvPage }),
+      },
       { path: "*", element: <NotFoundPage /> },
     ],
   },
