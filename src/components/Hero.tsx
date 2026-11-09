@@ -38,7 +38,7 @@ export function Hero({ profile }: HeroProps) {
             </li>
           ))}
         </ul>
-        <Link className="button intro__cv" to="/about">
+        <Link className="button intro__cv" to="/cv">
           View full CV <span className="button__arrow" aria-hidden="true">→</span>
         </Link>
       </div>
